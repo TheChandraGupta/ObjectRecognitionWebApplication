@@ -1,0 +1,80 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<!--div style="text-align:center">
+  <h1>
+    Welcome to {{ title }}!
+  </h1>
+  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+</div>
+<h2>Here are some links to help you start: </h2>
+<ul>
+  <li>
+    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
+  </li>
+  <li>
+    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
+  </li>
+  <li>
+    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
+  </li>
+</ul-->
+
+
+<nav class="navbar navbar-inverse navbar-fixed-top" style="background:#2a3d5a;" role="navigation">
+  <a class="navbar-brand" href="#">
+    <h2 style="color: white;">{{title}}</h2>
+  </a>
+  <ul class="nav navbar-nav">
+    <h2 style="color: white;">
+      AI-WIZARD
+    </h2>
+  </ul>
+</nav>
+
+
+<!-- <nav class="navbar navbar-inverse" style="background:#2a3d5a;">
+  <a class="navbar-brand" href="#"></a>
+  <ul class="nav navbar-nav">
+    <h1 style="color: white;">
+      {{ title }}
+    </h1>
+  </ul>
+</nav> -->
+
+<div class="container" style="margin-left: 20px !important;
+  margin-right: 20px !important;
+  max-width: -webkit-fill-available !important;
+">
+  <div class="row">
+    <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12" style="align-content: center; margin-top: 60px !important; margin-bottom: 60px !important;">
+      <div class="input-default-wrapper">
+        <span class="input-group-text" id="input2" style="padding:0.0rem !important;">
+          <input type="file" id="file-with-current" class="input-default-js" #test_img name="file" (change)="onSelectImage($event)"
+            style="width: 100% !important;">
+          <label class="label-for-default-js rounded-right" for="file-with-current">
+          </label>
+        </span>
+      </div>
+      <button style="width:100%;margin-top: 18px;" class="btn btn-success" (click)="recognizeObject()">Recognize Object</button>
+      <ng-container *ngIf="isImgRecognized">
+        <div uib-alert template-url="alert.html" style="background-color:#628b7a;color:white;width:100%; margin-bottom:30px; margin-top: 30px;text-align: center;"
+          class="form-control">{{objectName}}</div>
+        <div *ngFor="let item of data">
+          <div class="progress" style="margin-top: 10px">
+            <div class="progress-bar" style="color:black;" role="progressbar" aria-valuenow="70" aria-valuemin="0"
+              aria-valuemax="100" [style.width.%]="item.percent">
+              {{item.percent}}%
+            </div>
+          </div>
+          <p style="text-align: center">{{item.category}}</p>
+        </div>
+      </ng-container>
+
+    </div>
+    <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12" style="margin-top: 60px !important; margin-bottom: 60px !important;">
+      <ng-container *ngIf="isImgSelected">
+        <img [src]="url" class="img-fluid img-thumbnail mx-auto d-block" height=50% width=50%>
+      </ng-container>
+    </div>
+  </div>
+  <!-- <img width="300" alt="Angular Logo" class="float-right"  src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg=="> -->
+</div>
